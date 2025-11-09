@@ -88,8 +88,12 @@ if (!game.wall || !game.floor || !game.exit || !game.player || !game.collectible
     printf("Error: failed to load one or more images\n");
     return (1);
 }
+    game.moves = 0;
+    game.coins_collected = 0;
+    game.total_coins =  count_coins(map);
+    faind_player_position(&game);
 
-img_in_map(&game);
+update_game(&game);
 
 mlx_key_hook(game.win,key_hook, &game);
 mlx_loop(game.mlx);
