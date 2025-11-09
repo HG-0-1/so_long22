@@ -42,39 +42,53 @@ void update_game(t_game *game)
     img_in_map(game);
     draw_player(game);
 }
+
+void move_player(t_game *game, int dx,int dy)
+{
+    int new_x;
+    int new_y;
+
+    new_x =game -> player_x + dx;
+    new_y =game -> player_y + dy;
+    if(game -> map[new_x][new_y] == '1')
+    {
+     if(game -> map[new_x][new_y] == 'C')
+     {
+         game -> map[new_x][new_y] = '0';
+         game -> coins_collected++;
+     }
+        if(game -> map[new_x][new_y] == 'E')
+        {
+            if(game -> coins_collected == game -> total_coins)
+            {
+                printf(you win)
+                exit(0);
+            }
+                else 
+                return;
+        }
+            game ->player_x= new_x;
+            game ->player_y= new_y;
+            game -> move++;
+            update_game(game);
+            printf(game ->move);
+            
+    }
+    
+}
 void move_up(t_game *game)
 {
-    if (game -> map[game -> player_y - 1][game -> player_x] != '1')
-    {
-        game -> player_y--;
-        game -> moves++;
-        update_game(game);
-    }
+move_player(game,0,-1);
 }
 void move_down(t_game *game)
 {
-    if (game -> map[game -> player_y + 1][game -> player_x] != '1')
-    {
-        game -> player_y++;
-        game -> moves++;
-        update_game(game);
-    }
+move_player(game,0,1);
 }
 void move_left(t_game game)
 {
-     if (game -> map[game -> player_y - 1][game -> player_x -1] != '1')
-     {
-        game -> player_y--;
-        game -> moves++;
-        update_game(game);
-     }
+    move_player(game,-1,0);
 }
 void move_right(t_game *game)
 {
-    if (game -> map[game -> player_y + 1][game -> player_x + 1] != '1')
-    {
-        game -> player_y++;
-        game -> moves++;
-        update_game(game);
-    }
+move_player(game,1,0);
 }
